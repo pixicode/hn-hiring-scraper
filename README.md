@@ -19,3 +19,19 @@ Example Output
 <a class="storylink" href="item?id=23379196">Ask HN: Who is hiring? (June 2020)</a>
 ```
 
+## Example Results
+
+```
+python: 119
+java: 34
+aws: 100
+typescript: 40
+react: 177
+google: 54
+ios: 90
+javascript: 69
+azure: 14
+kotlin: 8
+swift: 13
+```
+
