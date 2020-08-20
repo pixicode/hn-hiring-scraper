@@ -1,0 +1,11 @@
+python: 119
+java: 34
+aws: 100
+typescript: 40
+react: 177
+google: 54
+ios: 90
+javascript: 69
+azure: 14
+kotlin: 8
+swift: 13
