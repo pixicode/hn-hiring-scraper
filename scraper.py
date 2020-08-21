@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 from bs4.element import NavigableString
 from collections import Counter
 import requests
+import json
 
 
 class Scraper():
@@ -46,16 +47,23 @@ class Scraper():
                 post_links.append(href)
         
         keyword_map = Counter()
+        keyword_list = []
 
         # Scrape the post links.
         for link in post_links:
-            keyword_map += self.scrape_hiring_submission_page(link)
+            job_post_map = self.scrape_hiring_submission_page(link)
+            keyword_map += job_post_map
+            keyword_list.append(job_post_map)
 
         print(f"Final map: {keyword_map}")
         
         with open("output.txt", "w") as f:
             for key, count in keyword_map.items():
                 f.write(f"{key}: {count}\n")
+
+        keyword_list.reverse()
+        with open("output.json", "w") as f:
+            json.dump(keyword_list, f, indent=2)
 
     def scrape_hiring_submission_page(self, url: str):
         submission_url = self.BASE_URL + url
@@ -86,7 +94,7 @@ class Scraper():
 
         print(f"Parsing: {type(first_element)} {first_element}")
         parsed_title_elements = first_element.split("|")
-        if len(parsed_title_elements) == 1:
+        if len(parsed_title_elements) < 3:
             # This post is probably not properly formatted, so skip.
             return keyword_map
 
