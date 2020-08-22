@@ -14,18 +14,11 @@ class Scraper():
     def __init__(self):
         self.keywords = {
             "python",
-            "java",
-            "swift",
-            "ios",
             "javascript",
-            "typescript",
-            "kotlin",
-            "react",
-            "aws",
-            "azure",
-            "google",
-            "node",
-            "c#"
+            "java",
+            "c#",
+            "ruby",
+            "kotlin"
         }
         pass
 
@@ -57,12 +50,18 @@ class Scraper():
 
         print(f"Final map: {keyword_map}")
         
+        # Output Text
         with open("output.txt", "w") as f:
             for key, count in keyword_map.items():
                 f.write(f"{key}: {count}\n")
 
-        keyword_list.reverse()
+        # Output JSON
         with open("output.json", "w") as f:
+            json.dump(keyword_map, f, indent=2)
+
+        # Output Time-Series JSON
+        keyword_list.reverse()
+        with open("series_output.json", "w") as f:
             json.dump(keyword_list, f, indent=2)
 
     def scrape_hiring_submission_page(self, url: str):
